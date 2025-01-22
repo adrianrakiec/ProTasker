@@ -19,37 +19,33 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 	};
 
 	return (
-		<div className='relative p-4 bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out'>
-			<div
-				className={`absolute top-2 right-2 px-2 py-1 text-sm font-bold rounded ${getPriorityColor()}`}
-			>
-				{task.priority.toUpperCase()}
+		<div className='p-5 bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out overflow-hidden'>
+			<div className='flex justify-end'>
+				<div className={`p-1 text-sm font-bold rounded ${getPriorityColor()}`}>
+					{task.priority.toUpperCase()}
+				</div>
 			</div>
 
-			<h3 className='text-lg font-semibold text-gray-800'>{task.title}</h3>
+			<h3 className='text-lg font-semibold text-gray-800 break-words'>
+				{task.title}
+			</h3>
 
 			{task.description && (
 				<p className='text-sm text-gray-600 mt-2'>{task.description}</p>
 			)}
 
 			{task.dueDate && (
-				<p className='text-sm text-gray-500 mt-2'>
-					<strong>Due:</strong> {task.dueDate}
+				<p className='text-sm text-red-600 mt-2'>
+					<strong>Deadline:</strong> {task.dueDate}
 				</p>
 			)}
 
 			<div className='flex justify-end gap-2 mt-4'>
 				<button
-					className='text-sm text-blue-600 hover:text-blue-800 underline'
+					className='text-sm text-gray-600 hover:text-gray-800 underline'
 					onClick={() => console.log('edit')}
 				>
-					Edit
-				</button>
-				<button
-					className='text-sm text-red-600 hover:text-red-800 underline'
-					onClick={() => console.log('delete')}
-				>
-					Delete
+					Details
 				</button>
 			</div>
 		</div>
