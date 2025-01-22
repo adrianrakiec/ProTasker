@@ -1,10 +1,13 @@
 import { Navbar } from './components/Navbar';
+import { useDarkMode } from './hooks/useDarkMode';
 
 function App() {
+	const { isDarkMode, toggleTheme } = useDarkMode();
+
 	return (
-		<>
-			<Navbar toggleTheme={() => console.log('toogle')} isDarkMode={true} />
-		</>
+		<div className='min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100'>
+			<Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+		</div>
 	);
 }
 
