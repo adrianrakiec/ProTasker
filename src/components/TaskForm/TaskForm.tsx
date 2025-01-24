@@ -27,6 +27,8 @@ export const TaskForm: React.FC = () => {
 	const navigate = useNavigate();
 	const [state, dispatchForm] = useReducer(formReducer, initialState);
 
+	const today = new Date().toISOString().split('T')[0];
+
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
@@ -159,6 +161,7 @@ export const TaskForm: React.FC = () => {
 				<input
 					id='dueDate'
 					type='date'
+					min={today}
 					onChange={e => dispatchForm(setField('dueDate', e.target.value))}
 					className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 				/>
