@@ -1,3 +1,4 @@
+import { getPriorityColor } from '../helpers/taskPriority';
 import { Task } from '../types/Task';
 
 interface TaskCardProps {
@@ -5,23 +6,12 @@ interface TaskCardProps {
 }
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
-	const getPriorityColor = () => {
-		switch (task.priority) {
-			case 'low':
-				return 'bg-green-200 text-green-800';
-			case 'medium':
-				return 'bg-yellow-200 text-yellow-800';
-			case 'high':
-				return 'bg-red-200 text-red-800';
-			default:
-				return 'bg-gray-200 text-gray-800';
-		}
-	};
-
 	return (
 		<div className='p-5 bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out overflow-hidden'>
 			<div className='flex justify-end'>
-				<div className={`p-1 text-sm font-bold rounded ${getPriorityColor()}`}>
+				<div
+					className={`p-1 text-sm font-bold rounded ${getPriorityColor(task)}`}
+				>
 					{task.priority.toUpperCase()}
 				</div>
 			</div>
@@ -43,7 +33,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 			<div className='flex justify-end gap-2 mt-4'>
 				<button
 					className='text-sm text-gray-600 hover:text-gray-800 underline'
-					onClick={() => console.log('edit')}
+					onClick={() => console.log('move to details')}
 				>
 					Details
 				</button>

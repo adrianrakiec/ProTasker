@@ -1,10 +1,13 @@
+import { TaskPriority } from './TaskPriority';
+import { TaskStatus } from './TaskStatus';
+
 export type Task = {
 	id: string;
 	title: string;
 	description?: string;
 	dueDate?: string;
-	priority: 'low' | 'medium' | 'high';
-	status: 'todo' | 'in-progress' | 'done';
+	priority: TaskPriority;
+	status: TaskStatus;
 	subtasks?: Subtask[];
 };
 
