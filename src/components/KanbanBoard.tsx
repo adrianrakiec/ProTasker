@@ -1,39 +1,36 @@
 import React from 'react';
 import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
-import { Task } from '../types/Task';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { updateTask } from '../store/tasksSlice';
+import { RootState } from '../store';
 import { TaskStatus } from '../types/TaskStatus';
 import { KanbanColumn } from './KanbanColumn';
 
-interface KanbanBoardProps {
-	tasks: Task[];
-	setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
-}
-
-export const KanbanBoard: React.FC<KanbanBoardProps> = ({
-	tasks,
-	setTasks,
-}) => {
+export const KanbanBoard: React.FC = () => {
 	const columns = [
 		{ title: 'Todo', status: 'todo' },
 		{ title: 'In Progress', status: 'in-progress' },
 		{ title: 'Done', status: 'done' },
 	];
 
+	const tasks = useSelector((state: RootState) => state.tasks.tasks);
+	const dispatch = useDispatch();
+
 	const handleDragEnd = (event: DragEndEvent) => {
 		const { active, over } = event;
 
 		if (!over) return;
 
-		const activeTaskId = active.id;
-		const overColumnStatus = over.id;
+		const activeTaskId = active.id.toString();
+		const overColumnStatus = over.id as TaskStatus;
 
-		setTasks(prevTasks =>
-			prevTasks.map(task =>
-				task.id === activeTaskId
-					? { ...task, status: overColumnStatus as TaskStatus }
-					: task
-			)
+		dispatch(
+			updateTask({
+				id: activeTaskId,
+				status: overColumnStatus,
+			})
 		);
 	};
 
