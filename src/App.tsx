@@ -1,6 +1,6 @@
-import { Navbar } from './components/Navbar';
 import { useDarkMode } from './hooks/useDarkMode';
-import { MainPage } from './pages/MainPage';
+import { Outlet } from 'react-router';
+import { Navbar } from './components/Navbar';
 
 export const App = () => {
 	const { isDarkMode, toggleTheme } = useDarkMode();
@@ -8,7 +8,7 @@ export const App = () => {
 	return (
 		<div className='min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100'>
 			<Navbar toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
-			<MainPage />
+			<Outlet />
 		</div>
 	);
 };
