@@ -6,23 +6,7 @@ interface TasksState {
 }
 
 const initialState: TasksState = {
-	tasks: [
-		{
-			id: '1',
-			title: 'Task 1',
-			priority: 'low',
-			status: 'todo',
-			dueDate: '2025-01-25',
-		},
-		{ id: '2', title: 'Task 2', priority: 'medium', status: 'in-progress' },
-		{
-			id: '3',
-			title: 'Task 3',
-			priority: 'high',
-			status: 'done',
-			dueDate: '2025-01-20',
-		},
-	],
+	tasks: [],
 };
 
 const tasksSlice = createSlice({

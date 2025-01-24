@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/index.ts';
 import { App } from './App.tsx';
 import { MainPage } from './pages/MainPage.tsx';
+import { TaskForm } from './components/TaskForm/TaskForm.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
 				<Routes>
 					<Route path='/' element={<App />}>
 						<Route index element={<MainPage />} />
+						<Route path='/create-task' element={<TaskForm />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>

@@ -5,13 +5,13 @@ export type Task = {
 	id: string;
 	title: string;
 	description?: string;
-	dueDate?: string;
+	dueDate?: Date;
 	priority: TaskPriority;
 	status: TaskStatus;
 	subtasks?: Subtask[];
 };
 
-type Subtask = {
+export type Subtask = {
 	id: string;
 	title: string;
 	completed: boolean;

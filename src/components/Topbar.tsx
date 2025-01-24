@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router';
 import { Wrapper } from './Wrapper';
 
 interface TopbarProps {
@@ -12,7 +13,7 @@ export const Topbar: React.FC<TopbarProps> = ({ toggleTheme, isDarkMode }) => {
 			<Wrapper>
 				<div className='flex items-center justify-between'>
 					<div className='text-xl font-bold text-gray-800 dark:text-gray-100'>
-						ProTasker
+						<NavLink to='/'>ProTasker</NavLink>
 					</div>
 
 					<button
