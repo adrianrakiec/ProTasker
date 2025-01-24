@@ -1,61 +1,18 @@
-import React from 'react';
-import { Wrapper } from './Wrapper';
+import { NavLink } from 'react-router';
 
-interface NavbarProps {
-	toggleTheme: () => void;
-	isDarkMode: boolean;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, isDarkMode }) => {
-	return (
-		<nav className='bg-gray-100 dark:bg-gray-800 px-6 py-4 shadow-md'>
-			<Wrapper>
-				<div className='flex items-center justify-between'>
-					<div className='text-xl font-bold text-gray-800 dark:text-gray-100'>
-						ProTasker
-					</div>
-
-					<button
-						onClick={toggleTheme}
-						className='flex items-center space-x-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition'
-					>
-						<span>{isDarkMode ? 'Light theme' : 'Dark theme'}</span>
-						<span>
-							{isDarkMode ? (
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									className='h-5 w-5'
-									fill='none'
-									viewBox='0 0 24 24'
-									stroke='currentColor'
-									strokeWidth='2'
-								>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										d='M12 3v1m0 16v1m9-9h-1M4 12H3m16.364-7.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707'
-									/>
-								</svg>
-							) : (
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									className='h-5 w-5'
-									fill='none'
-									viewBox='0 0 24 24'
-									stroke='currentColor'
-									strokeWidth='2'
-								>
-									<path
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										d='M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9a9 9 0 01-9-9c0-4.97 4.03-9 9-9z'
-									/>
-								</svg>
-							)}
-						</span>
-					</button>
-				</div>
-			</Wrapper>
-		</nav>
-	);
-};
+export const Navbar: React.FC = () => (
+	<nav className='flex items-center gap-4 p-2 mt-2 text-xl'>
+		<NavLink to='/' className='text-gray-800 dark:text-white'>
+			Your tasks
+		</NavLink>
+		<NavLink to='/' className='text-gray-800 dark:text-white'>
+			Stats
+		</NavLink>
+		<NavLink
+			to='/create-task'
+			className='ml-auto text-lg font-semibold text-white bg-blue-600 rounded-lg px-6 py-2 hover:bg-blue-700 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg'
+		>
+			Add Task
+		</NavLink>
+	</nav>
+);

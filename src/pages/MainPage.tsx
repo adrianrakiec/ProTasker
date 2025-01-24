@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { KanbanBoard } from '../components/KanbanBoard';
 import { Wrapper } from '../components/Wrapper';
 import { Task } from '../types/Task';
+import { Navbar } from '../components/Navbar';
 
 export const MainPage = () => {
 	const [tasks, setTasks] = useState<Task[]>([
@@ -25,6 +26,7 @@ export const MainPage = () => {
 	return (
 		<main>
 			<Wrapper>
+				<Navbar />
 				<KanbanBoard tasks={tasks} setTasks={setTasks} />
 			</Wrapper>
 		</main>
