@@ -1,37 +1,57 @@
 import React from 'react';
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { Task } from '../types/Task';
-import { TaskCard } from './TaskCard';
+import { TaskStatus } from '../types/TaskStatus';
+import { KanbanColumn } from './KanbanColumn';
 
 interface KanbanBoardProps {
 	tasks: Task[];
+	setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
-export const KanbanBoard: React.FC<KanbanBoardProps> = ({ tasks }) => {
+export const KanbanBoard: React.FC<KanbanBoardProps> = ({
+	tasks,
+	setTasks,
+}) => {
 	const columns = [
 		{ title: 'Todo', status: 'todo' },
 		{ title: 'In Progress', status: 'in-progress' },
 		{ title: 'Done', status: 'done' },
 	];
 
+	const handleDragEnd = (event: DragEndEvent) => {
+		const { active, over } = event;
+
+		if (!over) return;
+
+		const activeTaskId = active.id;
+		const overColumnStatus = over.id;
+
+		setTasks(prevTasks =>
+			prevTasks.map(task =>
+				task.id === activeTaskId
+					? { ...task, status: overColumnStatus as TaskStatus }
+					: task
+			)
+		);
+	};
+
 	return (
-		<div className='grid grid-cols-1 md:grid-cols-3 gap-5 p-4'>
-			{columns.map(column => (
-				<div
-					key={column.status}
-					className='bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow'
-				>
-					<h2 className='text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4'>
-						{column.title}
-					</h2>
-					<div className='flex flex-col gap-4'>
-						{tasks
-							.filter(task => task.status === column.status)
-							.map(task => (
-								<TaskCard key={task.id} task={task} />
-							))}
-					</div>
-				</div>
-			))}
-		</div>
+		<DndContext
+			collisionDetection={closestCenter}
+			onDragEnd={handleDragEnd}
+			modifiers={[restrictToWindowEdges]}
+		>
+			<div className='grid grid-cols-1 md:grid-cols-3 gap-5 p-4'>
+				{columns.map(column => (
+					<KanbanColumn
+						key={column.status}
+						column={column}
+						tasks={tasks.filter(task => task.status === column.status)}
+					/>
+				))}
+			</div>
+		</DndContext>
 	);
 };

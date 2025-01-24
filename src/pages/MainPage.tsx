@@ -1,35 +1,31 @@
+import { useState } from 'react';
 import { KanbanBoard } from '../components/KanbanBoard';
 import { Wrapper } from '../components/Wrapper';
 import { Task } from '../types/Task';
 
 export const MainPage = () => {
-	const tasks: Task[] = [
+	const [tasks, setTasks] = useState<Task[]>([
 		{
 			id: '1',
-			title: 'Setup project',
+			title: 'Task 1',
+			priority: 'low',
 			status: 'todo',
-			priority: 'high',
 			dueDate: '2025-01-25',
 		},
-		{
-			id: '2',
-			title: 'Create Kanban layout',
-			status: 'in-progress',
-			priority: 'medium',
-		},
+		{ id: '2', title: 'Task 2', priority: 'medium', status: 'in-progress' },
 		{
 			id: '3',
-			title: 'Refactor components',
+			title: 'Task 3',
+			priority: 'high',
 			status: 'done',
-			priority: 'low',
 			dueDate: '2025-01-20',
 		},
-	];
+	]);
 
 	return (
 		<main>
 			<Wrapper>
-				<KanbanBoard tasks={tasks} />
+				<KanbanBoard tasks={tasks} setTasks={setTasks} />
 			</Wrapper>
 		</main>
 	);
