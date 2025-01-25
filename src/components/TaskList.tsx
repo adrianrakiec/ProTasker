@@ -13,7 +13,7 @@ export const TaskList: React.FC = () => {
 
 	if (tasks.length === 0) {
 		return (
-			<div className='p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow'>
+			<div className='p-4 mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow'>
 				<p className='text-center text-gray-700 dark:text-gray-300'>
 					No tasks available.
 				</p>
@@ -22,7 +22,7 @@ export const TaskList: React.FC = () => {
 	}
 
 	return (
-		<div className='p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow'>
+		<div className='p-4 mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow'>
 			{sections.map(section => (
 				<div key={section.status} className='mb-8'>
 					<h3 className='text-xl font-medium text-gray-800 dark:text-white mb-4'>
@@ -69,7 +69,7 @@ export const TaskList: React.FC = () => {
 
 						{tasksByStatus(section.status as TaskStatus).length === 0 && (
 							<p className='text-sm text-gray-600 dark:text-gray-400'>
-								No tasks 
+								No tasks
 							</p>
 						)}
 					</ul>
