@@ -1,4 +1,4 @@
-import { KanbanBoard } from '../components/KanbanBoard';
+import { Outlet } from 'react-router';
 import { Wrapper } from '../components/Wrapper';
 import { Navbar } from '../components/Navbar';
 
@@ -7,7 +7,7 @@ export const MainPage = () => {
 		<main>
 			<Wrapper>
 				<Navbar />
-				<KanbanBoard />
+				<Outlet />
 			</Wrapper>
 		</main>
 	);

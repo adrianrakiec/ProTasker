@@ -7,13 +7,10 @@ import { updateTask } from '../store/tasksSlice';
 import { RootState } from '../store';
 import { TaskStatus } from '../types/TaskStatus';
 import { KanbanColumn } from './KanbanColumn';
+import { SECTIONS } from '../helpers/sectionName';
 
 export const KanbanBoard: React.FC = () => {
-	const columns = [
-		{ title: 'Todo', status: 'todo' },
-		{ title: 'In Progress', status: 'in-progress' },
-		{ title: 'Done', status: 'done' },
-	];
+	const columns = SECTIONS;
 
 	const tasks = useSelector((state: RootState) => state.tasks.tasks);
 	const dispatch = useDispatch();

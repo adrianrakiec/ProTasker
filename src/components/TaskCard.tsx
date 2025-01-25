@@ -7,7 +7,7 @@ interface TaskCardProps {
 
 export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 	return (
-		<div className='p-5 bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out overflow-hidden'>
+		<div className='p-4 bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out overflow-hidden'>
 			<div className='flex justify-end'>
 				<div
 					className={`p-1 text-sm font-bold rounded ${getPriorityColor(task)}`}
@@ -16,7 +16,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 				</div>
 			</div>
 
-			<h3 className='text-lg font-semibold text-gray-800 break-words'>
+			<h3 className='text-base font-semibold text-gray-800 break-words'>
 				{task.title}
 			</h3>
 
@@ -26,7 +26,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
 			{task.dueDate && (
 				<p className='text-sm text-red-600 mt-2'>
-					<strong>Deadline:</strong> {task.dueDate}
+					<strong>Deadline:</strong>{' '}
+					{new Date(task.dueDate).toLocaleDateString()}
 				</p>
 			)}
 

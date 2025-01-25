@@ -44,6 +44,7 @@ export const TaskForm: React.FC = () => {
 			priority: state.priority as TaskPriority,
 			subtasks: state.subtasks,
 			status: 'todo',
+			dueDate: state.dueDate,
 		};
 
 		dispatch(addTask(newTask));
