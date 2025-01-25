@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router';
+import { ViewToggleButton } from './ViewToggleBtn';
 
 interface NavbarProps {
 	isBoardView: boolean;
@@ -13,13 +14,12 @@ export const Navbar: React.FC<NavbarProps> = ({ isBoardView, onToggle }) => (
 		<NavLink to='/' className='text-gray-800 dark:text-white'>
 			Stats
 		</NavLink>
-		<NavLink to='/list' className='text-gray-800 dark:text-white'>
-			List
-		</NavLink>
-		<button onClick={onToggle}>Change view</button>
+		<div className='ml-auto'>
+			<ViewToggleButton isBoardView={isBoardView} onToggle={onToggle} />
+		</div>
 		<NavLink
 			to='/create-task'
-			className='ml-auto text-lg font-semibold text-white bg-blue-600 rounded-lg px-6 py-2 hover:bg-blue-700 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg'
+			className='text-lg font-semibold text-white bg-blue-600 rounded-lg px-6 py-2 hover:bg-blue-700 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg'
 		>
 			Add Task
 		</NavLink>
