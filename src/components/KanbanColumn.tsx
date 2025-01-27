@@ -18,8 +18,8 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = ({
 			ref={setNodeRef}
 			className='bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow'
 		>
-			<h2 className='text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4'>
-				{column.title}
+			<h2 className='flex text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4'>
+				{column.title} <span className='ml-auto'>({tasks.length})</span>
 			</h2>
 			<div className='flex flex-col gap-4'>
 				{tasks.map(task => (
