@@ -12,6 +12,11 @@ import {
 	resetForm,
 } from './TaskFormActions';
 import { formReducer } from './TaskFormReducer';
+import { InputField } from '../FormInputs/InputField';
+import { TextareaField } from '../FormInputs/TextareaField';
+import { SelectField } from '../FormInputs/SelectField';
+import { DatePickerField } from '../FormInputs/DatePickerField';
+import { AddSubtask } from '../AddSubtask';
 
 const initialState: TaskFormState = {
 	title: '',
@@ -26,8 +31,6 @@ export const TaskForm: React.FC = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [state, dispatchForm] = useReducer(formReducer, initialState);
-
-	const today = new Date().toISOString().split('T')[0];
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -60,79 +63,43 @@ export const TaskForm: React.FC = () => {
 			<h2 className='text-2xl font-semibold mb-4'>Create New Task</h2>
 
 			<div className='mb-4'>
-				<label
-					htmlFor='title'
-					className='block text-gray-800 dark:text-white font-medium mb-2'
-				>
-					Title <span className='text-red-500'>*</span>
-				</label>
-				<input
-					id='title'
-					type='text'
+				<InputField
+					label='Title'
 					value={state.title}
 					onChange={e => dispatchForm(setField('title', e.target.value))}
-					className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
-					required
+					required={true}
+					placeholder='Task title'
 				/>
 			</div>
 
 			<div className='mb-4'>
-				<label
-					htmlFor='description'
-					className='block text-gray-800 dark:text-white font-medium mb-2'
-				>
-					Description (Optional)
-				</label>
-				<textarea
-					id='description'
+				<TextareaField
+					label='Description'
 					value={state.description}
 					onChange={e => dispatchForm(setField('description', e.target.value))}
-					className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 					rows={3}
-				></textarea>
+					placeholder='Description (optional)'
+				/>
 			</div>
 
 			<div className='mb-4'>
-				<label
-					htmlFor='priority'
-					className='block text-gray-800 dark:text-white font-medium mb-2'
-				>
-					Priority
-				</label>
-				<select
-					id='priority'
+				<SelectField
+					label='Priority'
 					value={state.priority}
 					onChange={e => dispatchForm(setField('priority', e.target.value))}
-					className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
-				>
-					<option value='low'>Low</option>
-					<option value='medium'>Medium</option>
-					<option value='high'>High</option>
-				</select>
+					options={['low', 'medium', 'high']}
+				/>
 			</div>
 
 			<div className='mb-4'>
-				<label className='block text-gray-800 dark:text-white font-medium mb-2'>
-					Subtasks
-				</label>
-				<div className='flex items-center gap-2 mb-2'>
-					<input
-						type='text'
-						value={state.subtaskTitle}
-						onChange={e =>
-							dispatchForm(setField('subtaskTitle', e.target.value))
-						}
-						placeholder='Subtask title'
-						className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
-					/>
-					<button
-						type='button'
-						onClick={() => dispatchForm(addSubtask(Date.now().toString()))}
-						className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
-					>
-						Add
-					</button>
-				</div>
+				<AddSubtask
+					subtaskTitle={state.subtaskTitle}
+					onChangeSubtaskTitle={e =>
+						dispatchForm(setField('subtaskTitle', e.target.value))
+					}
+					onAddSubtask={() => dispatchForm(addSubtask(Date.now().toString()))}
+				/>
+
 				<ul>
 					{state.subtasks.map(subtask => (
 						<li
@@ -153,18 +120,9 @@ export const TaskForm: React.FC = () => {
 			</div>
 
 			<div className='mb-4'>
-				<label
-					htmlFor='dueDate'
-					className='block text-gray-800 dark:text-white font-medium mb-2'
-				>
-					Due Date (Optional)
-				</label>
-				<input
-					id='dueDate'
-					type='date'
-					min={today}
+				<DatePickerField
+					label='Deadline'
 					onChange={e => dispatchForm(setField('dueDate', e.target.value))}
-					className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 				/>
 			</div>
 
