@@ -6,5 +6,5 @@ export type TaskFormState = {
 	priority: 'low' | 'medium' | 'high';
 	subtasks: Subtask[];
 	subtaskTitle: string;
-	dueDate? : Date;
+	dueDate? : string;
 };

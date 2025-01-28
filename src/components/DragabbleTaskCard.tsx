@@ -1,6 +1,7 @@
 import { useDraggable } from '@dnd-kit/core';
 import { Task } from '../types/Task';
 import { TaskCard } from './TaskCard';
+import { NavLink } from 'react-router';
 
 interface DraggableTaskCardProps {
 	task: Task;
@@ -9,9 +10,10 @@ interface DraggableTaskCardProps {
 export const DraggableTaskCard: React.FC<DraggableTaskCardProps> = ({
 	task,
 }) => {
-	const { attributes, listeners, setNodeRef, transform } = useDraggable({
-		id: task.id,
-	});
+	const { attributes, listeners, setNodeRef, transform, isDragging } =
+		useDraggable({
+			id: task.id,
+		});
 
 	const style = {
 		transform: transform
@@ -19,15 +21,28 @@ export const DraggableTaskCard: React.FC<DraggableTaskCardProps> = ({
 			: undefined,
 	};
 
+	const linkToDetails = `/task-details/${task.id}`;
+
 	return (
-		<div
-			ref={setNodeRef}
-			style={style}
-			{...listeners}
-			{...attributes}
-			className='cursor-grab'
-		>
-			<TaskCard task={task} />
+		<div className='relative'>
+			<div
+				ref={setNodeRef}
+				style={style}
+				{...listeners}
+				{...attributes}
+				className='cursor-grab'
+			>
+				<TaskCard task={task} />
+			</div>
+
+			{!isDragging && (
+				<NavLink
+					to={linkToDetails}
+					className='absolute bottom-2 right-2 p-3 px-4 text-sm text-gray-600 hover:text-gray-800 underline'
+				>
+					Details
+				</NavLink>
+			)}
 		</div>
 	);
 };
