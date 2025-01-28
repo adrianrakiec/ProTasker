@@ -4,6 +4,7 @@ interface InputFieldProps {
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	required?: boolean;
 	placeholder?: string;
+	disabled?: boolean;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -12,6 +13,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 	onChange,
 	required = false,
 	placeholder = '',
+	disabled = false,
 }) => {
 	return (
 		<>
@@ -26,6 +28,7 @@ export const InputField: React.FC<InputFieldProps> = ({
 				value={value}
 				onChange={onChange}
 				placeholder={placeholder}
+				disabled={disabled}
 				className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 				required={required}
 			/>

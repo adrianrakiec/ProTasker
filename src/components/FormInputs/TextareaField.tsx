@@ -4,6 +4,7 @@ interface TextareaFieldProps {
 	onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 	rows?: number;
 	placeholder?: string;
+	disabled?: boolean;
 }
 
 export const TextareaField: React.FC<TextareaFieldProps> = ({
@@ -12,6 +13,7 @@ export const TextareaField: React.FC<TextareaFieldProps> = ({
 	onChange,
 	rows = 3,
 	placeholder = '',
+	disabled = false,
 }) => {
 	return (
 		<>
@@ -27,6 +29,7 @@ export const TextareaField: React.FC<TextareaFieldProps> = ({
 				onChange={onChange}
 				rows={rows}
 				placeholder={placeholder}
+				disabled={disabled}
 				className='w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500'
 			/>
 		</>

@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { Wrapper } from '../components/Wrapper';
+import { TaskEditForm } from '../components/TaskEditForm';
 
 export const TaskDetailsPage = () => {
 	const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ export const TaskDetailsPage = () => {
 
 	if (!task) {
 		return (
-			<div className='text-center mt-10'>
+			<div className='text-center mt-20'>
 				<h2 className='text-2xl font-bold text-red-500'>Task not found</h2>
 				<p className='text-gray-600 dark:text-gray-400'>
 					The task you're looking for doesn't exist.
@@ -31,8 +32,7 @@ export const TaskDetailsPage = () => {
 	return (
 		<section>
 			<Wrapper>
-				{/* task details component */}
-				<h2>details</h2>
+				<TaskEditForm task={task} />
 			</Wrapper>
 		</section>
 	);

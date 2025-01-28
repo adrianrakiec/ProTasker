@@ -24,7 +24,7 @@ const initialState: TaskFormState = {
 	priority: 'low',
 	subtasks: [],
 	subtaskTitle: '',
-	dueDate: undefined,
+	dueDate: '',
 };
 
 export const TaskForm: React.FC = () => {
