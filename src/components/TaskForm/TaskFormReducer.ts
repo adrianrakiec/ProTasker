@@ -26,6 +26,16 @@ export const formReducer = (
 				subtasks: state.subtasks.filter(subtask => subtask.id !== action.id),
 			};
 
+		case 'TOGGLE_SUBTASK_COMPLETED':
+			return {
+				...state,
+				subtasks: state.subtasks.map(subtask =>
+					subtask.id === action.id
+						? { ...subtask, completed: !subtask.completed }
+						: subtask
+				),
+			};
+
 		case 'RESET_FORM':
 			return {
 				title: '',
@@ -33,7 +43,7 @@ export const formReducer = (
 				priority: 'low',
 				subtasks: [],
 				subtaskTitle: '',
-				dueDate: undefined,
+				dueDate: '',
 			};
 
 		default:

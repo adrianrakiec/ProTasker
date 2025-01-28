@@ -94,6 +94,7 @@ export const TaskForm: React.FC = () => {
 			<div className='mb-4'>
 				<AddSubtask
 					subtaskTitle={state.subtaskTitle}
+					label='Subtasks'
 					onChangeSubtaskTitle={e =>
 						dispatchForm(setField('subtaskTitle', e.target.value))
 					}

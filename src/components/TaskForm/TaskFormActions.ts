@@ -16,6 +16,11 @@ export const removeSubtask = (id: string): TaskFormAction => ({
 	id,
 });
 
+export const toogleSubtaskStatus = (id: string): TaskFormAction => ({
+	type: 'TOGGLE_SUBTASK_COMPLETED',
+	id,
+});
+
 export const resetForm = (): TaskFormAction => ({
 	type: 'RESET_FORM',
 });
