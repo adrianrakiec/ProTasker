@@ -1,3 +1,4 @@
+import { X } from 'lucide-react';
 import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
 import { Subtask } from '../types/Task';
 import { AddSubtask } from './AddSubtask';
@@ -54,7 +55,7 @@ export const SubtaskList: React.FC<SubtaskListProps> = ({
 									onClick={() => onRemoveSubtask(subtask.id)}
 									className='text-red-500 hover:underline px-3 font-bold'
 								>
-									X
+									<X size={25} />
 								</button>
 							)}
 						</li>
