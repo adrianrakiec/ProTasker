@@ -13,9 +13,8 @@ import {
 import { TextareaField } from './FormInputs/TextareaField';
 import { SelectField } from './FormInputs/SelectField';
 import { DatePickerField } from './FormInputs/DatePickerField';
-import { AddSubtask } from './AddSubtask';
 import { updateTask } from '../store/tasksSlice';
-import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
+import { SubtaskList } from './SubtaskList';
 
 interface TaskEditFormProps {
 	task: Task;
@@ -37,6 +36,23 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 
 	const handleEditClick = () => {
 		setIsEditing(true);
+	};
+
+	const handleChangeInputValue = (field: string, value: string) => {
+		dispatchForm(setField(field, value));
+	};
+
+	const handleToggleSubtaskStatus = (id: string) => {
+		dispatchForm(toogleSubtaskStatus(id));
+		setIsEditing(true);
+	};
+
+	const handleAddSubtask = (id: string) => {
+		dispatchForm(addSubtask(id));
+	};
+
+	const handleRemoveSubtask = (id: string) => {
+		dispatchForm(removeSubtask(id));
 	};
 
 	const handleSaveClick = (e: React.FormEvent) => {
@@ -104,7 +120,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 					<InputField
 						label='Title'
 						value={state.title}
-						onChange={e => dispatchForm(setField('title', e.target.value))}
+						onChange={e => handleChangeInputValue('title', e.target.value)}
 						required
 						placeholder='Task title'
 						disabled={!isEditing}
@@ -114,7 +130,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 						label='Description'
 						value={state.description}
 						onChange={e =>
-							dispatchForm(setField('description', e.target.value))
+							handleChangeInputValue('description', e.target.value)
 						}
 						rows={4}
 						placeholder='Description (optional)'
@@ -124,7 +140,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 					<SelectField
 						label='Priority'
 						value={state.priority}
-						onChange={e => dispatchForm(setField('priority', e.target.value))}
+						onChange={e => handleChangeInputValue('priority', e.target.value)}
 						options={['low', 'medium', 'high']}
 						disabled={!isEditing}
 					/>
@@ -133,73 +149,20 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 						label='Deadline'
 						value={state.dueDate}
 						disabled={!isEditing}
-						onChange={e => dispatchForm(setField('dueDate', e.target.value))}
+						onChange={e => handleChangeInputValue('dueDate', e.target.value)}
 					/>
 				</div>
 			</form>
 
-			<div className='bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg'>
-				<h3 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>
-					Subtasks:
-					{state.subtasks.length > 0 &&
-						` (${calculateCompletionPercentage(state.subtasks)}% completed)`}
-				</h3>
-
-				{state.subtasks.length > 0 ? (
-					<ul className='space-y-2 max-h-96 overflow-y-auto'>
-						{state.subtasks.map(subtask => (
-							<li
-								key={subtask.id}
-								className='flex justify-between items-center bg-white dark:bg-gray-700 px-3 py-2 rounded shadow cursor-pointer '
-								onClick={() => {
-									dispatchForm(toogleSubtaskStatus(subtask.id));
-									setIsEditing(true);
-								}}
-							>
-								{subtask.completed && (
-									<span className='mx-2 text-green-500'>✓</span>
-								)}
-								<div
-									className={`mr-auto ${
-										subtask.completed ? 'line-through text-gray-500' : ''
-									}`}
-								>
-									{subtask.title}
-								</div>
-
-								{isEditing && (
-									<button
-										type='button'
-										onClick={() => dispatchForm(removeSubtask(subtask.id))}
-										className='text-red-500 hover:underline px-3 font-bold'
-									>
-										X
-									</button>
-								)}
-							</li>
-						))}
-					</ul>
-				) : (
-					<p className='text-gray-500 dark:text-gray-400'>
-						No subtasks available. Add one in edit mode.
-					</p>
-				)}
-
-				{isEditing && (
-					<div className='mt-4'>
-						<AddSubtask
-							subtaskTitle={state.subtaskTitle}
-							label='Add subtask'
-							onChangeSubtaskTitle={e =>
-								dispatchForm(setField('subtaskTitle', e.target.value))
-							}
-							onAddSubtask={() =>
-								dispatchForm(addSubtask(Date.now().toString()))
-							}
-						/>
-					</div>
-				)}
-			</div>
+			<SubtaskList
+				subtasks={state.subtasks}
+				isEditing={isEditing}
+				subtaskTitle={state.subtaskTitle}
+				onToggleSubtaskStatus={handleToggleSubtaskStatus}
+				onRemoveSubtask={handleRemoveSubtask}
+				onChangeInputValue={handleChangeInputValue}
+				onAddSubtask={handleAddSubtask}
+			/>
 		</div>
 	);
 };
