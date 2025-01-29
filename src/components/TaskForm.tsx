@@ -1,22 +1,22 @@
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { addTask } from '../../store/tasksSlice';
-import { TaskPriority } from '../../types/TaskPriority';
-import { Task } from '../../types/Task';
-import { TaskFormState } from '../../types/TaskFormState';
+import { TaskFormState } from '../types/TaskFormState';
+import { formReducer } from '../helpers/TaskFormReducer';
+import { Task } from '../types/Task';
+import { TaskPriority } from '../types/TaskPriority';
+import { addTask } from '../store/tasksSlice';
 import {
-	setField,
 	addSubtask,
 	removeSubtask,
 	resetForm,
-} from './TaskFormActions';
-import { formReducer } from './TaskFormReducer';
-import { InputField } from '../FormInputs/InputField';
-import { TextareaField } from '../FormInputs/TextareaField';
-import { SelectField } from '../FormInputs/SelectField';
-import { DatePickerField } from '../FormInputs/DatePickerField';
-import { AddSubtask } from '../AddSubtask';
+	setField,
+} from '../helpers/TaskFormActions';
+import { InputField } from './FormInputs/InputField';
+import { TextareaField } from './FormInputs/TextareaField';
+import { SelectField } from './FormInputs/SelectField';
+import { AddSubtask } from './AddSubtask';
+import { DatePickerField } from './FormInputs/DatePickerField';
 
 const initialState: TaskFormState = {
 	title: '',

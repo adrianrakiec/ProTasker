@@ -1,4 +1,4 @@
-import { TaskFormAction } from '../../types/TaskFormAction';
+import { TaskFormAction } from '../types/TaskFormAction';
 
 export const setField = (field: string, value: string): TaskFormAction => ({
 	type: 'SET_FIELD',

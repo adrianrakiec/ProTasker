@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/index.ts';
 import { App } from './App.tsx';
 import { MainPage } from './pages/MainPage.tsx';
-import { TaskForm } from './components/TaskForm/TaskForm.tsx';
+import { TaskForm } from './components/TaskForm.tsx';
 import { TaskDetailsPage } from './pages/TaskDetailsPage.tsx';
 import './index.css';
 

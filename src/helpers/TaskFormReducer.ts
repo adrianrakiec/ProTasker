@@ -1,5 +1,5 @@
-import { TaskFormState } from '../../types/TaskFormState';
-import { TaskFormAction } from '../../types/TaskFormAction';
+import { TaskFormAction } from '../types/TaskFormAction';
+import { TaskFormState } from '../types/TaskFormState';
 
 export const formReducer = (
 	state: TaskFormState,

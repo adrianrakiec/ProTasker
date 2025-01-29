@@ -1,7 +1,7 @@
 import { useReducer, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Task } from '../types/Task';
-import { formReducer } from './TaskForm/TaskFormReducer';
+import { formReducer } from '../helpers/TaskFormReducer';
 import { TaskFormState } from '../types/TaskFormState';
 import { InputField } from './FormInputs/InputField';
 import {
@@ -9,7 +9,7 @@ import {
 	removeSubtask,
 	setField,
 	toogleSubtaskStatus,
-} from './TaskForm/TaskFormActions';
+} from '../helpers/TaskFormActions';
 import { TextareaField } from './FormInputs/TextareaField';
 import { SelectField } from './FormInputs/SelectField';
 import { DatePickerField } from './FormInputs/DatePickerField';
