@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store';
 import { toggleView } from '../store/viewSlice';
 import { Wrapper } from '../components/Wrapper';
-import { Navbar } from '../components/Navbar';
+import { TaskToolbar } from '../components/TaskToolbar';
 import { KanbanBoard } from '../components/KanbanBoard';
 import { TaskList } from '../components/TaskList';
 
@@ -13,7 +13,7 @@ export const MainPage = () => {
 	return (
 		<main>
 			<Wrapper>
-				<Navbar
+				<TaskToolbar
 					isBoardView={isBoardView}
 					onToggle={() => dispatch(toggleView())}
 				/>

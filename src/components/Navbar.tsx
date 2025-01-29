@@ -1,27 +1,26 @@
 import { NavLink } from 'react-router';
-import { ViewToggleButton } from './ViewToggleBtn';
+import { Wrapper } from './Wrapper';
+import { ToggleThemeButton } from './ToggleThemeButton';
 
 interface NavbarProps {
-	isBoardView: boolean;
-	onToggle: () => void;
+	toggleTheme: () => void;
+	isDarkMode: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ isBoardView, onToggle }) => (
-	<nav className='flex items-center gap-4 p-2 mt-2 text-xl'>
-		<NavLink to='/' className='text-gray-800 dark:text-white'>
-			Your tasks
-		</NavLink>
-		<NavLink to='/' className='text-gray-800 dark:text-white'>
-			Stats
-		</NavLink>
-		<div className='ml-auto'>
-			<ViewToggleButton isBoardView={isBoardView} onToggle={onToggle} />
-		</div>
-		<NavLink
-			to='/create-task'
-			className='text-lg font-semibold text-white bg-blue-600 rounded-lg px-6 py-2 hover:bg-blue-700 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg'
-		>
-			Add Task
-		</NavLink>
-	</nav>
-);
+export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, isDarkMode }) => {
+	return (
+		<nav className='bg-gray-100 dark:bg-gray-800 px-6 py-4 shadow-md'>
+			<Wrapper>
+				<div className='flex items-center justify-between'>
+					<div className='text-xl font-bold text-gray-800 dark:text-gray-100'>
+						<NavLink to='/'>ProTasker</NavLink>
+					</div>
+					<ToggleThemeButton
+						toggleTheme={toggleTheme}
+						isDarkMode={isDarkMode}
+					/>
+				</div>
+			</Wrapper>
+		</nav>
+	);
+};
