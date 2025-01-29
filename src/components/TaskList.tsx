@@ -1,9 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store';
 import { TaskStatus } from '../types/TaskStatus';
 import { SECTIONS } from '../helpers/sectionName';
+import { Task } from '../types/Task';
+import { updateTask } from '../store/tasksSlice';
+import { Link } from 'react-router';
 
 export const TaskList: React.FC = () => {
+	const dispatch = useDispatch();
 	const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
 	const tasksByStatus = (status: TaskStatus) =>
@@ -21,6 +25,10 @@ export const TaskList: React.FC = () => {
 		);
 	}
 
+	const handleChangeStatus = (task: Task, newStatus: TaskStatus) => {
+		dispatch(updateTask({ id: task.id, status: newStatus }));
+	};
+
 	return (
 		<div className='p-4 mt-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow'>
 			{sections.map(section => (
@@ -37,7 +45,7 @@ export const TaskList: React.FC = () => {
 							>
 								<div>
 									<h4 className='text-lg font-medium text-gray-900 dark:text-gray-100'>
-										{task.title}
+										<Link to={`/task-details/${task.id}`}>{task.title}</Link>
 									</h4>
 									{task.description && (
 										<p className='text-sm text-gray-600 dark:text-gray-400'>
@@ -46,22 +54,49 @@ export const TaskList: React.FC = () => {
 									)}
 								</div>
 
-								<div className='text-right'>
-									<p
-										className={`text-sm font-medium ${
-											task.priority === 'high'
-												? 'text-red-500'
-												: task.priority === 'medium'
-												? 'text-yellow-500'
-												: 'text-green-500'
-										}`}
-									>
-										Priority: {task.priority}
-									</p>
-									{task.dueDate && (
-										<p className='text-sm text-gray-600 dark:text-gray-400'>
-											Due: {new Date(task.dueDate).toLocaleDateString()}
+								<div className='flex gap-2 '>
+									<div className='text-right mr-8'>
+										<p
+											className={`text-sm font-medium ${
+												task.priority === 'high'
+													? 'text-red-500'
+													: task.priority === 'medium'
+													? 'text-yellow-500'
+													: 'text-green-500'
+											}`}
+										>
+											Priority: {task.priority}
 										</p>
+										{task.dueDate && (
+											<p className='text-sm text-gray-600 dark:text-gray-400'>
+												Due: {new Date(task.dueDate).toLocaleDateString()}
+											</p>
+										)}
+									</div>
+
+									{section.status !== 'todo' && (
+										<button
+											onClick={() => handleChangeStatus(task, 'todo')}
+											className='px-2 py-1 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded text-sm hover:bg-gray-400 dark:hover:bg-gray-500'
+										>
+											To Do
+										</button>
+									)}
+									{section.status !== 'in-progress' && (
+										<button
+											onClick={() => handleChangeStatus(task, 'in-progress')}
+											className='px-2 py-1 bg-yellow-300 dark:bg-yellow-600 text-yellow-900 dark:text-white rounded text-sm hover:bg-yellow-400 dark:hover:bg-yellow-500'
+										>
+											In Progress
+										</button>
+									)}
+									{section.status !== 'done' && (
+										<button
+											onClick={() => handleChangeStatus(task, 'done')}
+											className='px-2 py-1 bg-green-300 dark:bg-green-600 text-green-900 dark:text-white rounded text-sm hover:bg-green-400 dark:hover:bg-green-500'
+										>
+											Done
+										</button>
 									)}
 								</div>
 							</li>

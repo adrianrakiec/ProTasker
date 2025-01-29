@@ -15,6 +15,7 @@ import { SelectField } from './FormInputs/SelectField';
 import { DatePickerField } from './FormInputs/DatePickerField';
 import { AddSubtask } from './AddSubtask';
 import { updateTask } from '../store/tasksSlice';
+import { calculateCompletionPercentage } from '../helpers/calculateCompletionPercentage';
 
 interface TaskEditFormProps {
 	task: Task;
@@ -139,7 +140,9 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 
 			<div className='bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg'>
 				<h3 className='text-lg font-semibold text-gray-900 dark:text-white mb-4'>
-					Subtasks
+					Subtasks:
+					{state.subtasks.length > 0 &&
+						` (${calculateCompletionPercentage(state.subtasks)}% completed)`}
 				</h3>
 
 				{state.subtasks.length > 0 ? (
