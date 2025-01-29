@@ -101,7 +101,7 @@ export const TaskForm: React.FC = () => {
 					onAddSubtask={() => dispatchForm(addSubtask(Date.now().toString()))}
 				/>
 
-				<ul>
+				<ul className='mt-1'>
 					{state.subtasks.map(subtask => (
 						<li
 							key={subtask.id}

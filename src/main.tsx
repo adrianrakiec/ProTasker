@@ -7,6 +7,7 @@ import { App } from './App.tsx';
 import { MainPage } from './pages/MainPage.tsx';
 import { TaskForm } from './components/TaskForm.tsx';
 import { TaskDetailsPage } from './pages/TaskDetailsPage.tsx';
+import { NotFoundPage } from './pages/NotFoundPage.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
 						<Route path='/create-task' element={<TaskForm />} />
 						<Route path='/task-details/:id' element={<TaskDetailsPage />} />
 					</Route>
+					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
 			</BrowserRouter>
 		</Provider>
