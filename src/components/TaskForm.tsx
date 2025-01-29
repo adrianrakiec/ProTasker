@@ -17,6 +17,7 @@ import { TextareaField } from './FormInputs/TextareaField';
 import { SelectField } from './FormInputs/SelectField';
 import { AddSubtask } from './AddSubtask';
 import { DatePickerField } from './FormInputs/DatePickerField';
+import { toastService } from '../helpers/toastify';
 
 const initialState: TaskFormState = {
 	title: '',
@@ -52,6 +53,7 @@ export const TaskForm: React.FC = () => {
 
 		dispatch(addTask(newTask));
 		dispatchForm(resetForm());
+		toastService.success('Task created successfully. Keep up the good work!');
 		navigate('/');
 	};
 

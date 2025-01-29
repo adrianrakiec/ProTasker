@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { addTask, clearTasks } from '../store/tasksSlice';
 import { Wrapper } from '../components/Wrapper';
 import { isValidTaskArray } from '../helpers/importValidate';
 import { FileUpload } from '../components/FormInputs/FileUpload';
+import { toastService } from '../helpers/toastify';
 
 export const ImportExportPage: React.FC = () => {
 	const dispatch = useDispatch();
-	const [error, setError] = useState<string | null>(null);
+	const navigate = useNavigate();
 	const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
 	const handleExport = () => {
@@ -36,9 +36,14 @@ export const ImportExportPage: React.FC = () => {
 					} else {
 						throw new Error('Invalid file format');
 					}
-				} catch (error) {
-					console.error(error);
-					setError('Failed to import tasks. Please check the file format.');
+
+					navigate('/');
+					toastService.success('Tasks successfully imported!');
+				} catch (e) {
+					console.error(e);
+					toastService.error(
+						'Failed to import tasks. Please check the file format.'
+					);
 				}
 			};
 			reader.readAsText(selectedFile);
@@ -48,12 +53,12 @@ export const ImportExportPage: React.FC = () => {
 	return (
 		<Wrapper>
 			<div className='container mx-auto p-4'>
-				<h1 className='text-2xl font-semibold mb-6'>Import / Export Tasks</h1>
+				<h2 className='text-2xl font-semibold mb-6'>Import / Export Tasks</h2>
 				<div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
 					<div className='p-4 border rounded-md bg-white shadow-sm dark:bg-gray-800 dark:border-gray-700'>
-						<h2 className='text-xl font-medium mb-2 text-gray-900 dark:text-white'>
+						<h3 className='text-xl font-medium mb-2 text-gray-900 dark:text-white'>
 							Export Tasks
-						</h2>
+						</h3>
 						<p className='mb-4 text-gray-700 dark:text-gray-300'>
 							Click the button below to export tasks as a JSON file.
 						</p>
@@ -66,9 +71,9 @@ export const ImportExportPage: React.FC = () => {
 					</div>
 
 					<div className='p-4 border rounded-md bg-white shadow-sm dark:bg-gray-800 dark:border-gray-700'>
-						<h2 className='text-xl font-medium mb-2 text-gray-900 dark:text-white'>
+						<h3 className='text-xl font-medium mb-2 text-gray-900 dark:text-white'>
 							Import Tasks
-						</h2>
+						</h3>
 						<p className='mb-4 text-gray-700 dark:text-gray-300'>
 							Upload a JSON file to import tasks.
 						</p>

@@ -17,6 +17,7 @@ import { DatePickerField } from './FormInputs/DatePickerField';
 import { removeTask, updateTask } from '../store/tasksSlice';
 import { SubtaskList } from './SubtaskList';
 import { ActionButton } from './ActionButton';
+import { toastService } from '../helpers/toastify';
 
 interface TaskEditFormProps {
 	task: Task;
@@ -43,6 +44,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 
 	const handleDeleteTaskClick = (id: string) => {
 		navigate('/');
+		toastService.success('Your task has been removed.');
 		setTimeout(() => {
 			dispatch(removeTask(id));
 		}, 0);
@@ -85,6 +87,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 		);
 
 		setIsEditing(false);
+		toastService.success('Task updated successfully!');
 	};
 
 	return (
