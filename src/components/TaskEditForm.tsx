@@ -1,5 +1,6 @@
 import { useReducer, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { Task } from '../types/Task';
 import { formReducer } from '../helpers/TaskFormReducer';
 import { TaskFormState } from '../types/TaskFormState';
@@ -13,8 +14,9 @@ import {
 import { TextareaField } from './FormInputs/TextareaField';
 import { SelectField } from './FormInputs/SelectField';
 import { DatePickerField } from './FormInputs/DatePickerField';
-import { updateTask } from '../store/tasksSlice';
+import { removeTask, updateTask } from '../store/tasksSlice';
 import { SubtaskList } from './SubtaskList';
+import { ActionButton } from './ActionButton';
 
 interface TaskEditFormProps {
 	task: Task;
@@ -33,9 +35,17 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 	const dispatch = useDispatch();
 	const [state, dispatchForm] = useReducer(formReducer, initialState);
 	const [isEditing, setIsEditing] = useState(false);
+	const navigate = useNavigate();
 
 	const handleEditClick = () => {
 		setIsEditing(true);
+	};
+
+	const handleDeleteTaskClick = (id: string) => {
+		navigate('/');
+		setTimeout(() => {
+			dispatch(removeTask(id));
+		}, 0);
 	};
 
 	const handleChangeInputValue = (field: string, value: string) => {
@@ -87,33 +97,42 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 					<h2 className='text-xl font-bold text-gray-900 dark:text-white'>
 						Task Details
 					</h2>
-					{!isEditing ? (
-						<div className='flex items-center mb-4'>
-							<p className='text-gray-500 dark:text-gray-400 text-sm'>
-								View or edit the task details below.
-							</p>
-							<button
-								type='button'
-								className='ml-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
-								onClick={handleEditClick}
-							>
-								Edit
-							</button>
-						</div>
-					) : (
-						<div className='flex items-center mb-4'>
-							<p className='text-green-700 dark:text-green-400 text-sm font-bold'>
-								You are now editing this task.
-							</p>
-							<button
-								type='button'
-								className='ml-auto bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600'
-								onClick={handleSaveClick}
-							>
-								Save
-							</button>
-						</div>
-					)}
+					<div className='flex items-center mb-4'>
+						{!isEditing ? (
+							<>
+								<p className='text-gray-500 dark:text-gray-400 text-sm'>
+									View or edit the task details below.
+								</p>
+								<span className='ml-auto'>
+									<ActionButton
+										label='Edit'
+										actionType='edit'
+										handleClick={handleEditClick}
+									/>
+								</span>
+							</>
+						) : (
+							<>
+								<p className='text-green-700 dark:text-green-400 text-sm font-bold'>
+									You are now editing this task.
+								</p>
+								<span className='ml-auto'>
+									<ActionButton
+										label='Save'
+										actionType='save'
+										handleClick={handleSaveClick}
+									/>
+								</span>
+							</>
+						)}
+						<span className='ml-3'>
+							<ActionButton
+								label='Delete'
+								actionType='delete'
+								handleClick={() => handleDeleteTaskClick(task.id)}
+							/>
+						</span>
+					</div>
 				</div>
 
 				<div className='space-y-4'>

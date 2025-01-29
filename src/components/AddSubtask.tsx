@@ -1,3 +1,4 @@
+import { ActionButton } from './ActionButton';
 import { InputField } from './FormInputs/InputField';
 
 interface AddSubtaskProps {
@@ -24,13 +25,7 @@ export const AddSubtask: React.FC<AddSubtaskProps> = ({
 				/>
 			</div>
 
-			<button
-				type='button'
-				onClick={onAddSubtask}
-				className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'
-			>
-				Add
-			</button>
+			<ActionButton label='Add' actionType='edit' handleClick={onAddSubtask} />
 		</div>
 	);
 };
