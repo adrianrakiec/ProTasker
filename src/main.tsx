@@ -10,6 +10,7 @@ import { TaskDetailsPage } from './pages/TaskDetailsPage.tsx';
 import { NotFoundPage } from './pages/NotFoundPage.tsx';
 import { ImportExportPage } from './pages/ImportExportPage.tsx';
 import { StatisticsPage } from './pages/StatisticsPage.tsx';
+import { OverviewStats } from './components/Statistics/OverviewStats.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -22,7 +23,9 @@ createRoot(document.getElementById('root')!).render(
 						<Route path='/create-task' element={<TaskForm />} />
 						<Route path='/task-details/:id' element={<TaskDetailsPage />} />
 						<Route path='/import-export' element={<ImportExportPage />} />
-						<Route path='/statistics' element={<StatisticsPage />} />
+						<Route path='/statistics' element={<StatisticsPage />}>
+							<Route index element={<OverviewStats />} />
+						</Route>
 					</Route>
 					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
