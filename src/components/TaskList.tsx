@@ -26,7 +26,9 @@ export const TaskList: React.FC = () => {
 	}
 
 	const handleChangeStatus = (task: Task, newStatus: TaskStatus) => {
-		dispatch(updateTask({ id: task.id, status: newStatus }));
+		const completionDate =
+			newStatus === 'done' ? new Date().toLocaleDateString() : '';
+		dispatch(updateTask({ id: task.id, status: newStatus, completionDate }));
 	};
 
 	return (

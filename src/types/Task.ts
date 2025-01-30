@@ -6,6 +6,7 @@ export type Task = {
 	title: string;
 	description?: string;
 	dueDate?: string;
+	completionDate?: string;
 	priority: TaskPriority;
 	status: TaskStatus;
 	subtasks?: Subtask[];

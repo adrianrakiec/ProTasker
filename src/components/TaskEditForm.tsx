@@ -32,6 +32,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 		subtasks: task.subtasks || [],
 		subtaskTitle: '',
 		dueDate: task.dueDate,
+		completionDate: task.completionDate,
 	};
 
 	const dispatch = useDispatch();
@@ -85,6 +86,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 				priority: state.priority,
 				dueDate: state.dueDate,
 				subtasks: state.subtasks,
+				completionDate: state.completionDate,
 			})
 		);
 

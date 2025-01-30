@@ -26,6 +26,7 @@ const initialState: TaskFormState = {
 	subtasks: [],
 	subtaskTitle: '',
 	dueDate: '',
+	completionDate: '',
 };
 
 export const TaskForm: React.FC = () => {
@@ -49,6 +50,7 @@ export const TaskForm: React.FC = () => {
 			subtasks: state.subtasks,
 			status: 'todo',
 			dueDate: state.dueDate,
+			completionDate: state.completionDate,
 		};
 
 		dispatch(addTask(newTask));

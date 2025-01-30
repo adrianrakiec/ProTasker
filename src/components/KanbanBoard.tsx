@@ -26,6 +26,8 @@ export const KanbanBoard: React.FC = () => {
 			updateTask({
 				id: activeTaskId,
 				status: overColumnStatus,
+				completionDate:
+					overColumnStatus === 'done' ? new Date().toLocaleDateString() : '',
 			})
 		);
 	};
