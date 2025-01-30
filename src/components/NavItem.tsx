@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { NavLink } from 'react-router';
 
 interface NavItemProps {
 	to: string;
@@ -13,12 +13,18 @@ export const NavItem: React.FC<NavItemProps> = ({
 	label,
 	onClose,
 }) => (
-	<Link
+	<NavLink
 		to={to}
-		className='flex items-center gap-3 p-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition'
+		className={({ isActive }) =>
+			`flex items-center gap-3 p-3 rounded transition ${
+				isActive
+					? 'bg-blue-500 text-white'
+					: 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+			}`
+		}
 		onClick={onClose}
 	>
 		{icon}
 		<span>{label}</span>
-	</Link>
+	</NavLink>
 );
