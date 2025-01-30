@@ -18,6 +18,7 @@ import { removeTask, updateTask } from '../store/tasksSlice';
 import { SubtaskList } from './SubtaskList';
 import { ActionButton } from './ActionButton';
 import { toastService } from '../helpers/toastify';
+import { PopupConfirm } from './PopupConfirm';
 
 interface TaskEditFormProps {
 	task: Task;
@@ -36,6 +37,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 	const dispatch = useDispatch();
 	const [state, dispatchForm] = useReducer(formReducer, initialState);
 	const [isEditing, setIsEditing] = useState(false);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const navigate = useNavigate();
 
 	const handleEditClick = () => {
@@ -94,7 +96,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 		<div className='my-4 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6'>
 			<form
 				onSubmit={handleSaveClick}
-				className='col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg space-y-6'
+				className='md:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg space-y-6'
 			>
 				<div className='border-b pb-4'>
 					<h2 className='text-xl font-bold text-gray-900 dark:text-white'>
@@ -132,7 +134,7 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 							<ActionButton
 								label='Delete'
 								actionType='delete'
-								handleClick={() => handleDeleteTaskClick(task.id)}
+								handleClick={() => setIsPopupOpen(true)}
 							/>
 						</span>
 					</div>
@@ -184,6 +186,15 @@ export const TaskEditForm: React.FC<TaskEditFormProps> = ({ task }) => {
 				onRemoveSubtask={handleRemoveSubtask}
 				onChangeInputValue={handleChangeInputValue}
 				onAddSubtask={handleAddSubtask}
+			/>
+
+			<PopupConfirm
+				isOpen={isPopupOpen}
+				onClose={() => setIsPopupOpen(false)}
+				onConfirm={() => {
+					handleDeleteTaskClick(task.id);
+					setIsPopupOpen(false);
+				}}
 			/>
 		</div>
 	);
