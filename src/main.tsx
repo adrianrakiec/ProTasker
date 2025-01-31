@@ -13,6 +13,7 @@ import { StatisticsPage } from './pages/StatisticsPage.tsx';
 import { OverviewStats } from './components/Statistics/OverviewStats.tsx';
 import { Trends } from './components/Statistics/Trends.tsx';
 import { TaskStatusChart } from './components/Statistics/TaskStatusChart.tsx';
+import { TaskPriorityChart } from './components/Statistics/TaskPriorityChart.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -31,6 +32,10 @@ createRoot(document.getElementById('root')!).render(
 							<Route
 								path='/statistics/tasks-status'
 								element={<TaskStatusChart />}
+							/>
+							<Route
+								path='/statistics/tasks-priority'
+								element={<TaskPriorityChart />}
 							/>
 						</Route>
 					</Route>
