@@ -11,6 +11,7 @@ import { NotFoundPage } from './pages/NotFoundPage.tsx';
 import { ImportExportPage } from './pages/ImportExportPage.tsx';
 import { StatisticsPage } from './pages/StatisticsPage.tsx';
 import { OverviewStats } from './components/Statistics/OverviewStats.tsx';
+import { Trends } from './components/Statistics/Trends.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
 						<Route path='/import-export' element={<ImportExportPage />} />
 						<Route path='/statistics' element={<StatisticsPage />}>
 							<Route index element={<OverviewStats />} />
+							<Route path='/statistics/trends' element={<Trends />} />
 						</Route>
 					</Route>
 					<Route path='*' element={<NotFoundPage />} />

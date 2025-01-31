@@ -6,32 +6,19 @@ import {
 	Tooltip,
 	ResponsiveContainer,
 } from 'recharts';
-import { Task } from '../../types/Task';
 
 interface TaskTrendsChartProps {
-	tasks: Task[];
+	data: {
+		date: string;
+		count: number;
+	}[];
 }
 
-export const TaskTrendsChart: React.FC<TaskTrendsChartProps> = ({ tasks }) => {
-	const completedTasksByDate = tasks
-		.filter(task => task.status === 'done')
-		.reduce((acc: Record<string, number>, task) => {
-			const date = task.completionDate as string;
-			acc[date] = (acc[date] || 0) + 1;
-			return acc;
-		}, {});
-
-	const sortedData = Object.entries(completedTasksByDate)
-		.map(([date, count]) => ({ date, count }))
-		.sort((a, b) => a.date.localeCompare(b.date));
-
+export const TaskTrendsChart: React.FC<TaskTrendsChartProps> = ({ data }) => {
 	return (
 		<div className='bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg'>
-			<h2 className='text-xl font-semibold text-center mb-4 text-gray-700 dark:text-white'>
-				Task Completion Trends
-			</h2>
 			<ResponsiveContainer width='100%' height={300}>
-				<LineChart data={sortedData}>
+				<LineChart data={data}>
 					<XAxis
 						dataKey='date'
 						stroke='#4B5563'

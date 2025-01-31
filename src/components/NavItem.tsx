@@ -15,6 +15,7 @@ export const NavItem: React.FC<NavItemProps> = ({
 }) => (
 	<NavLink
 		to={to}
+		end
 		className={({ isActive }) =>
 			`flex items-center gap-3 p-3 rounded transition ${
 				isActive
