@@ -12,6 +12,7 @@ import { ImportExportPage } from './pages/ImportExportPage.tsx';
 import { StatisticsPage } from './pages/StatisticsPage.tsx';
 import { OverviewStats } from './components/Statistics/OverviewStats.tsx';
 import { Trends } from './components/Statistics/Trends.tsx';
+import { TaskStatusChart } from './components/Statistics/TaskStatusChart.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -27,6 +28,10 @@ createRoot(document.getElementById('root')!).render(
 						<Route path='/statistics' element={<StatisticsPage />}>
 							<Route index element={<OverviewStats />} />
 							<Route path='/statistics/trends' element={<Trends />} />
+							<Route
+								path='/statistics/tasks-status'
+								element={<TaskStatusChart />}
+							/>
 						</Route>
 					</Route>
 					<Route path='*' element={<NotFoundPage />} />
